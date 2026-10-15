@@ -47,11 +47,17 @@ echo "✅ PostgreSQL configured"
 
 # --- Set up project directory ---
 echo "📁 Setting up project..."
-sudo mkdir -p /var/www/jerney
-sudo chown -R $USER:$USER /var/www/jerney
 
-# Copy project files (assumes you've transferred them to ~/Jerney)
-cp -r ~/Jerney/* /var/www/jerney/
+# Find the root directory of the project
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+echo "Project directory: $PROJECT_DIR"
+
+sudo mkdir -p /var/www/jerney
+sudo chown -R "$USER:$USER" /var/www/jerney
+
+# Copy all project files, including hidden files
+cp -r "$PROJECT_DIR"/. /var/www/jerney/
 
 # --- Install backend dependencies ---
 echo "📦 Installing backend dependencies..."
